@@ -2,24 +2,25 @@ import java.awt.Color;
 
 public class PointSET implements PointContainer
 {    
+	private SET s;
     public boolean isEmpty()
     {
-        throw new UnsupportedOperationException();
+    	return s==null;
     }
     
     public int size()
     {
-        throw new UnsupportedOperationException();
+        return s.size();
     }
     
     public void insert(Point2D p)
     {
-        throw new UnsupportedOperationException();
+        s.add(p);;
     }
     
     public boolean contains(Point2D p)
     {
-        throw new UnsupportedOperationException();
+        return s.contains(p);
     }
     
     public void draw(Canvas canvas)
@@ -29,7 +30,8 @@ public class PointSET implements PointContainer
         
         // TODO: Insert code here to call the point() method on canvas
         // for each point that has been inserted into your PointSET
-
+        Iterator<Key> i=s.iterator();
+        
         // Don't forget to remove this!
     	throw new UnsupportedOperationException();
     }
