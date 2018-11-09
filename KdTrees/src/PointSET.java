@@ -11,11 +11,7 @@ public class PointSET implements PointContainer
 	}
     public boolean isEmpty()
     {
-    	if(s==null)
-    	{
-    		throw new java.lang.NullPointerException();
-    	}
-    	return false;
+    	return s.isEmpty();
     }
     
     public int size()
