@@ -5,6 +5,10 @@ import java.util.Iterator;
 public class PointSET implements PointContainer
 {    
 	private SET<Point2D> s;
+	public PointSET()
+	{
+		this.s=new SET<Point2D>();
+	}
     public boolean isEmpty()
     {
     	if(s==null)
@@ -35,7 +39,7 @@ public class PointSET implements PointContainer
     
     public boolean contains(Point2D p)
     {
-    	if(p==null)
+    	if(p==null||s==null)
     	{
     		throw new java.lang.NullPointerException();
     	}
@@ -44,7 +48,7 @@ public class PointSET implements PointContainer
     
     public void draw(Canvas canvas)
     {
-    	if(canvas==null)
+    	if(canvas==null||s==null)
     	{
     		throw new java.lang.NullPointerException();
     	}
@@ -67,7 +71,7 @@ public class PointSET implements PointContainer
    
     public Iterable<Point2D> range(RectHV rect)
     {
-    	if(rect==null)
+    	if(rect==null||s==null)
     	{
     		throw new java.lang.NullPointerException();
     	}
@@ -86,20 +90,18 @@ public class PointSET implements PointContainer
     
     public Point2D nearest(Point2D p)
     {
-    	if(p==null)
+    	if(p==null||s==null)
     	{
     		throw new java.lang.NullPointerException();
     	}
     	
     	
         Iterator<Point2D> i=s.iterator();
-        double distance=i.next().distanceTo(p);
-        Point2D near=p;
+        Point2D near=i.next();
         while(i.hasNext())
         {
-        	if(i.next().distanceTo(p)<distance)
+        	if(i.next().distanceTo(p)<i.next().distanceTo(p))
         	{
-        		distance=i.next().distanceTo(p);
         		near=i.next();
         	}
         }
