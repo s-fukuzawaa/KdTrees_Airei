@@ -71,12 +71,12 @@ public class PointSET implements PointContainer
     		throw new java.lang.NullPointerException();
     	}
     	ArrayList<Point2D> range= new ArrayList<Point2D>();
-    	Iterator<Point2D> r=s.iterator();
-    	while(r.hasNext())
+    	
+    	for(Point2D p : s)
     	{
-    		if(r.next().x()>=rect.xmin()&&r.next().x()<=rect.xmax()&&r.next().y()>=rect.ymin()&&r.next().y()<=rect.ymax())
+    		if(p.x()>=rect.xmin()&&p.x()<=rect.xmax()&&p.y()>=rect.ymin()&&p.y()<=rect.ymax())
     		{
-    			range.add(r.next());
+    			range.add(p);
     		}
     	}
     	
