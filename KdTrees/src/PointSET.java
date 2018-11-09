@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 public class PointSET implements PointContainer
 {    
-	private SET s;
+	private SET<Point2D> s;
     public boolean isEmpty()
     {
     	if(s==null)
