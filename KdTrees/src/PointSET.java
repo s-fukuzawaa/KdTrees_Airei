@@ -55,10 +55,9 @@ public class PointSET implements PointContainer
         
         // TODO: Insert code here to call the point() method on canvas
         // for each point that has been inserted into your PointSET
-        Iterator<Point2D> i=s.iterator();
-        while(i.hasNext())
+        for(Point2D p : s)
         {
-        	canvas.point(i.next().x(), i.next().y());
+        	canvas.point(p.x(), p.y());
         }
         	
         
@@ -92,13 +91,13 @@ public class PointSET implements PointContainer
     	}
     	
     	
-        Iterator<Point2D> i=s.iterator();
-        Point2D near=i.next();
-        while(i.hasNext())
+        Point2D near=p;
+        for(Point2D n : s)
         {
-        	if(i.next().distanceTo(p)<i.next().distanceTo(p))
+        	if(n.distanceTo(p)<near.distanceTo(p)||near==p)
         	{
-        		near=i.next();
+        		
+        		near=n;
         	}
         }
         return  near;
