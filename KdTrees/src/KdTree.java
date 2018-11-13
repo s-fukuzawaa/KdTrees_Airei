@@ -20,20 +20,25 @@ public class KdTree implements PointContainer
     
     public int size()
     {
+    	if(root==null)
+    	{
+    		throw new java.lang.NullPointerException();
+    	}
+    	
     	return size(root);
     }
     
-    private int size(Node root)
+    private int size(Node cur)
     {
        
-        if(root==null)
+        if(cur==null)
         {
-    		throw new java.lang.NullPointerException();
+    		return 0;
         }
         
         else
         {
-            return 1+size(root.lb)+size(root.rt);
+            return 1+size(cur.lb)+size(cur.rt);
         }
 
     }
@@ -44,6 +49,7 @@ public class KdTree implements PointContainer
     	n.p=p;
     	if(cur==null)
     	{
+    		root=n;
     		return;
     	}
     	if(xy==true)
@@ -52,7 +58,6 @@ public class KdTree implements PointContainer
         	{
     			if(cur.lb==null)
     			{
-    				n.rt=cur;
     				cur.lb=n;
     				return;
     			}
@@ -67,7 +72,6 @@ public class KdTree implements PointContainer
     		{
     			if(cur.rt==null)
     			{
-    				n.lb=cur;
     				cur.rt=n;
     				return;
     			}
@@ -84,7 +88,6 @@ public class KdTree implements PointContainer
         	{
     			if(cur.lb==null)
     			{
-    				n.rt=cur;
     				cur.lb=n;
     				return;
     			}
@@ -99,7 +102,6 @@ public class KdTree implements PointContainer
     		{
     			if(cur.rt==null)
     			{
-    				n.lb=cur;
     				cur.rt=n;
     				return;
     			}
@@ -138,7 +140,7 @@ public class KdTree implements PointContainer
     	{
     		if(p.x()<cur.p.x())
         	{
-    			if(cur.lb.p==p)
+    			if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
     			{
     				return true;
     			}
@@ -155,7 +157,7 @@ public class KdTree implements PointContainer
     		
     		else
     		{
-    			if(cur.rt.p==p)
+    			if(cur.rt.p.x()==p.x()&&cur.rt.p.y()==p.y())
     			{
     				return true;
     			}
@@ -174,7 +176,7 @@ public class KdTree implements PointContainer
     	{
     		if(p.y()<cur.p.y())
         	{
-    			if(cur.lb.p==p)
+    			if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
     			{
     				return true;
     			}
@@ -191,7 +193,7 @@ public class KdTree implements PointContainer
     		
     		else
     		{
-    			if(cur.rt.p==p)
+    			if(cur.rt.p.x()==p.x()&&cur.rt.p.y()==p.y())
     			{
     				return true;
     			}
@@ -235,5 +237,20 @@ public class KdTree implements PointContainer
     public Point2D nearest(Point2D p)
     {
     	throw new UnsupportedOperationException();
-    }     
+    }    
+    
+    public static void main(String[] args)
+    {
+    	KdTree test= new KdTree();
+    	test.insert(new Point2D(0.3,0.4));
+    	test.insert(new Point2D(0.4,0.5));
+    	/*test.insert(new Point2D(3,4));
+    	test.insert(new Point2D(3,4));
+    	test.insert(new Point2D(3,4));
+    	test.insert(new Point2D(3,4));
+    	test.insert(new Point2D(3,4));
+    	test.insert(new Point2D(3,4));*/
+    	System.out.print(test.size());
+
+    }
 }
