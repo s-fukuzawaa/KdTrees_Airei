@@ -20,7 +20,7 @@ public class KdTree implements PointContainer
     
     public int size()
     {
-    	return size();
+    	return size(root);
     }
     
     private int size(Node root)
@@ -38,9 +38,89 @@ public class KdTree implements PointContainer
 
     }
     
+    private void insert(Point2D p, Node cur, boolean xy)
+    {
+    	Node n= new Node();
+    	n.p=p;
+    	if(cur==null)
+    	{
+    		return;
+    	}
+    	if(xy==true)
+    	{
+    		if(p.x()<cur.p.x())
+        	{
+    			if(cur.lb==null)
+    			{
+    				n.rt=cur;
+    				cur.lb=n;
+    				return;
+    			}
+    			else
+    			{
+    				insert(p,cur.lb,false);
+    				return;
+    			}
+        	}
+    		
+    		else
+    		{
+    			if(cur.rt==null)
+    			{
+    				n.lb=cur;
+    				cur.rt=n;
+    				return;
+    			}
+    			else
+    			{
+    				insert(p,cur.rt,false);
+    				return;
+    			}
+    		}
+    	}
+    	else
+    	{
+    		if(p.y()<cur.p.y())
+        	{
+    			if(cur.lb==null)
+    			{
+    				n.rt=cur;
+    				cur.lb=n;
+    				return;
+    			}
+    			else
+    			{
+    				insert(p,cur.lb,true);
+    				return;
+    			}
+        	}
+    		
+    		else
+    		{
+    			if(cur.rt==null)
+    			{
+    				n.lb=cur;
+    				cur.rt=n;
+    				return;
+    			}
+    			else
+    			{
+    				insert(p,cur.rt,true);
+    				return;
+    			}
+    		}
+    	}
+    	
+    }
+    
     public void insert(Point2D p)
     {
-    	throw new UnsupportedOperationException();
+    	if(p==null)
+    	{
+    		throw new java.lang.NullPointerException();
+    	}
+    	
+    	insert(p,root, true);
     }
     
     public boolean contains(Point2D p)
