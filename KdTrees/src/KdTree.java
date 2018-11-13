@@ -127,6 +127,85 @@ public class KdTree implements PointContainer
     {
     	throw new UnsupportedOperationException();
     }
+    private boolean contains(Point2D p, Node cur, boolean xy)
+    {
+    	if(p==null||cur==null)
+    	{
+    		throw new java.lang.NullPointerException();
+    	}
+    	
+    	if(xy==true)
+    	{
+    		if(p.x()<cur.p.x())
+        	{
+    			if(cur.lb.p==p)
+    			{
+    				return true;
+    			}
+    			else if(cur.lb==null)
+    			{
+    				return false;
+    			}
+    			else
+    			{
+    				return contains(p,cur.lb,false);
+    				
+    			}
+        	}
+    		
+    		else
+    		{
+    			if(cur.rt.p==p)
+    			{
+    				return true;
+    			}
+    			else if(cur.rt==null)
+    			{
+    				return false;
+    			}
+    			else
+    			{
+    				return contains(p,cur.rt,false);
+    				
+    			}
+    		}
+    	}
+    	else
+    	{
+    		if(p.y()<cur.p.y())
+        	{
+    			if(cur.lb.p==p)
+    			{
+    				return true;
+    			}
+    			else if(cur.lb==null)
+    			{
+    				return false;
+    			}
+    			else
+    			{
+    				return contains(p,cur.lb,true);
+    				
+    			}
+        	}
+    		
+    		else
+    		{
+    			if(cur.rt.p==p)
+    			{
+    				return true;
+    			}
+    			else if(cur.rt==null)
+    			{
+    				return false;
+    			}
+    			else
+    			{
+    				return contains(p,cur.rt,true);
+    			}
+    		}
+    	}
+    }
 
     public void draw(Canvas canvas)
     {
