@@ -245,13 +245,7 @@ public class KdTree implements PointContainer
     	KdTree test= new KdTree();
     	test.insert(new Point2D(0.3,0.4));
     	test.insert(new Point2D(0.4,0.5));
-    	/*test.insert(new Point2D(3,4));
-    	test.insert(new Point2D(3,4));
-    	test.insert(new Point2D(3,4));
-    	test.insert(new Point2D(3,4));
-    	test.insert(new Point2D(3,4));
-    	test.insert(new Point2D(3,4));*/
-    	System.out.print(test.size());
+    	test.contains(new Point2D(0.3,0.4));
 
     }
 }
