@@ -125,7 +125,7 @@ public class KdTree implements PointContainer
     
     public boolean contains(Point2D p)
     {
-    	throw new UnsupportedOperationException();
+    	return contains(p,root,true);
     }
     private boolean contains(Point2D p, Node cur, boolean xy)
     {
