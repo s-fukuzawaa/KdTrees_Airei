@@ -1,15 +1,41 @@
 import java.awt.Color;
 
+
 public class KdTree implements PointContainer
 {
+	private static class Node
+	{
+		private Point2D p;
+		private RectHV rect;
+		private Node lb;
+		private Node rt;
+	}
+	
+	private Node root;
+	
     public boolean isEmpty()
     {
-    	throw new UnsupportedOperationException();
+    	return root==null;
     }
     
     public int size()
     {
-    	throw new UnsupportedOperationException();
+    	return size();
+    }
+    
+    private int size(Node root)
+    {
+       
+        if(root==null)
+        {
+            return 0;
+        }
+        
+        else
+        {
+            return 1+size(root.lb)+size(root.rt);
+        }
+
     }
     
     public void insert(Point2D p)
