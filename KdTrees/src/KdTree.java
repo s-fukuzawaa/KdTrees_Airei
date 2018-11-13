@@ -135,7 +135,7 @@ public class KdTree implements PointContainer
     }
     private boolean contains(Point2D p, Node cur, boolean xy)
     {
-    	if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
+    	if(cur.p.x()==p.x()&&cur.p.y()==p.y())
     	{
     		return true;
     	}
