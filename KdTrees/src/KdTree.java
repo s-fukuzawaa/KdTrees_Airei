@@ -135,17 +135,17 @@ public class KdTree implements PointContainer
     }
     private boolean contains(Point2D p, Node cur, boolean xy)
     {
-    	
+    	if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
+    	{
+    		return true;
+    	}
     	
     	if(xy==true)
     	{
     		if(p.x()<cur.p.x())
         	{
-    			if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
-    			{
-    				return true;
-    			}
-    			else if(cur.lb==null)
+    			
+    			if(cur.lb==null)
     			{
     				return false;
     			}
@@ -158,11 +158,7 @@ public class KdTree implements PointContainer
     		
     		else
     		{
-    			if(cur.rt.p.x()==p.x()&&cur.rt.p.y()==p.y())
-    			{
-    				return true;
-    			}
-    			else if(cur.rt==null)
+    			if(cur.rt==null)
     			{
     				return false;
     			}
@@ -177,11 +173,7 @@ public class KdTree implements PointContainer
     	{
     		if(p.y()<cur.p.y())
         	{
-    			if(cur.lb.p.x()==p.x()&&cur.lb.p.y()==p.y())
-    			{
-    				return true;
-    			}
-    			else if(cur.lb==null)
+    			if(cur.lb==null)
     			{
     				return false;
     			}
@@ -194,11 +186,7 @@ public class KdTree implements PointContainer
     		
     		else
     		{
-    			if(cur.rt.p.x()==p.x()&&cur.rt.p.y()==p.y())
-    			{
-    				return true;
-    			}
-    			else if(cur.rt==null)
+    			if(cur.rt==null)
     			{
     				return false;
     			}
