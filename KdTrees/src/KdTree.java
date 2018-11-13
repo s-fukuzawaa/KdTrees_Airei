@@ -28,7 +28,7 @@ public class KdTree implements PointContainer
        
         if(root==null)
         {
-            return 0;
+    		throw new java.lang.NullPointerException();
         }
         
         else
