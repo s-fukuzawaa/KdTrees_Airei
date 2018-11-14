@@ -164,6 +164,7 @@ public class KdTree implements PointContainer
     			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
     		}
     	}
+    	addedrect=added.rect;
     	
     }
     
