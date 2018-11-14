@@ -12,9 +12,6 @@ public class KdTree implements PointContainer
 	}
 	
 	private Node root;
-	private Point2D added;
-	private boolean xory;
-	private RectHV addedrect;
 	
     public boolean isEmpty()
     {
@@ -53,7 +50,6 @@ public class KdTree implements PointContainer
     	{
     		throw new java.lang.NullPointerException();
     	}
-    	added=p;
     	insert(p,root, true);
     }
     
@@ -69,7 +65,6 @@ public class KdTree implements PointContainer
     	}
     	if(xy==true)
     	{
-    		xory=false;
     		if(p.x()<cur.p.x())
         	{
     			if(cur.lb==null)
@@ -103,7 +98,6 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
-    		xory=true;
 
     		if(p.y()<cur.p.y())
         	{
@@ -164,7 +158,6 @@ public class KdTree implements PointContainer
     			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
     		}
     	}
-    	addedrect=added.rect;
     	
     }
     
@@ -251,7 +244,7 @@ public class KdTree implements PointContainer
     	// For points, use these calls:
         canvas.setPenRadius(.01);
     	canvas.setPenColor(Color.BLACK);
-    	canvas.point(added.x(),added.y());
+    	canvas.point();
     	//
     	// For dividing lines, use these calls:
     	canvas.setPenRadius(.002);
@@ -259,15 +252,8 @@ public class KdTree implements PointContainer
     	canvas.setPenColor(Color.BLUE); //(for horizontal dividing lines)
     	
     	//xory true for x
-    	if(xory==true)
-    	{
-    		canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
-    	}
-    	else
-    	{
-    		canvas.line(addedrect.xmin(), added.y(), addedrect.xmax(), added.y());
-    	}
-
+    	canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
+    
 
         // Don't forget to remove this!
     }
