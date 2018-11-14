@@ -6,17 +6,13 @@ public class KdTree implements PointContainer
 	private static class Node
 	{
 		private Point2D p;
-		private RectHV rect;
+		private RectHV rect=new RectHV(0,0,1,1);
 		private Node lb;
 		private Node rt;
 	}
 	
 	private Node root;
-	public KdTree()
-	{
-		root.rect= new RectHV(0,0,1,1);
-		
-	}
+	
 	
     public boolean isEmpty()
     {
