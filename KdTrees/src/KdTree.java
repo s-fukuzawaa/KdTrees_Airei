@@ -12,7 +12,9 @@ public class KdTree implements PointContainer
 	}
 	
 	private Node root;
-	
+	private Point2D added;
+	private boolean xory;
+	private RectHV addedrect;
 	
     public boolean isEmpty()
     {
@@ -51,7 +53,7 @@ public class KdTree implements PointContainer
     	{
     		throw new java.lang.NullPointerException();
     	}
-    	
+    	added=p;
     	insert(p,root, true);
     }
     
@@ -59,6 +61,7 @@ public class KdTree implements PointContainer
     {
     	Node n= new Node();
     	n.p=p;
+    	
     	if(cur==null)
     	{
     		root=n;
@@ -66,6 +69,7 @@ public class KdTree implements PointContainer
     	}
     	if(xy==true)
     	{
+    		xory=false;
     		if(p.x()<cur.p.x())
         	{
     			if(cur.lb==null)
@@ -99,6 +103,8 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
+    		xory=true;
+
     		if(p.y()<cur.p.y())
         	{
     			if(cur.lb==null)
@@ -236,24 +242,33 @@ public class KdTree implements PointContainer
     	}
     }
 
+    
     public void draw(Canvas canvas)
     {
     	// Use canvas to draw your points and dividing lines
     	//
     	// For points, use these calls:
-        //    canvas.setPenRadius(.01);
-    	//    canvas.setPenColor(Color.BLACK);
-    	//    canvas.point(put your parameters here)
+        canvas.setPenRadius(.01);
+    	canvas.setPenColor(Color.BLACK);
+    	canvas.point(added.x(),added.y());
     	//
     	// For dividing lines, use these calls:
-    	//    canvas.setPenRadius(.002);
-    	//	  canvas.setPenColor(Color.RED); (for vertical dividing lines)
-    	//	  canvas.setPenColor(Color.BLUE); (for horizontal dividing lines)
-    	//    canvas.line(put your parameters here)
+    	canvas.setPenRadius(.002);
+    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
+    	canvas.setPenColor(Color.BLUE); //(for horizontal dividing lines)
+    	
+    	//xory true for x
+    	if(xory==true)
+    	{
+    		canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
+    	}
+    	else
+    	{
+    		canvas.line(addedrect.xmin(), added.y(), addedrect.xmax(), added.y());
+    	}
 
 
         // Don't forget to remove this!
-    	throw new UnsupportedOperationException();
     }
     
     public Iterable<Point2D> range(RectHV rect)

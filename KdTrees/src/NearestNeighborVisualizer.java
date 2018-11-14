@@ -28,6 +28,8 @@ public class NearestNeighborVisualizer {
             double y = in.readDouble();
             Point2D p = new Point2D(x, y);
             kdtree.insert(p);
+            kdtree.draw(canvas);
+            StdDraw.show(0);
             brute.insert(p);
         }
 
