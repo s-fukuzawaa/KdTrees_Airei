@@ -12,6 +12,11 @@ public class KdTree implements PointContainer
 	}
 	
 	private Node root;
+	public KdTree()
+	{
+		root.rect= new RectHV(0,0,1,1);
+		
+	}
 	
     public boolean isEmpty()
     {
@@ -42,6 +47,17 @@ public class KdTree implements PointContainer
         }
 
     }
+  
+    
+    public void insert(Point2D p)
+    {
+    	if(p==null)
+    	{
+    		throw new java.lang.NullPointerException();
+    	}
+    	
+    	insert(p,root, true);
+    }
     
     private void insert(Point2D p, Node cur, boolean xy)
     {
@@ -59,6 +75,8 @@ public class KdTree implements PointContainer
     			if(cur.lb==null)
     			{
     				cur.lb=n;
+    				insertrect(cur.lb,cur,true, xy);
+    				//if on cur's left side=true, cur's right side=false
     				return;
     			}
     			else
@@ -73,6 +91,7 @@ public class KdTree implements PointContainer
     			if(cur.rt==null)
     			{
     				cur.rt=n;
+    				insertrect(cur.rt,cur,false,xy);
     				return;
     			}
     			else
@@ -89,6 +108,8 @@ public class KdTree implements PointContainer
     			if(cur.lb==null)
     			{
     				cur.lb=n;
+    				insertrect(cur.lb,cur,true,xy);
+
     				return;
     			}
     			else
@@ -103,6 +124,8 @@ public class KdTree implements PointContainer
     			if(cur.rt==null)
     			{
     				cur.rt=n;
+    				insertrect(cur.rt,cur,false,xy);
+
     				return;
     			}
     			else
@@ -115,15 +138,34 @@ public class KdTree implements PointContainer
     	
     }
     
-    public void insert(Point2D p)
+    private void insertrect(Node added, Node cur, boolean lorr, boolean xyofcur)
     {
-    	if(p==null)
+    	if(lorr==true)
     	{
-    		throw new java.lang.NullPointerException();
+    		if(xyofcur==true)
+    		{
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.p.x(),cur.rect.ymax());
+    		}
+    		else
+    		{
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.rect.xmax(),cur.p.y());
+    		}
+    	}
+    	else
+    	{
+    		if(xyofcur==true)
+    		{
+    			added.rect=new RectHV(cur.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
+    		}
+    		else
+    		{
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
+    		}
     	}
     	
-    	insert(p,root, true);
     }
+    
+
     
     public boolean contains(Point2D p)
     {
