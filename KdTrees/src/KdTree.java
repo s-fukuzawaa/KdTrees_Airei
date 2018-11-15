@@ -140,22 +140,22 @@ public class KdTree implements PointContainer
     	{
     		if(xyofcur==true)
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.p.x(),cur.rect.ymax());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),added.p.x(),cur.rect.ymax());
     		}
     		else
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.rect.xmax(),cur.p.y());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.rect.xmax(),added.p.y());
     		}
     	}
     	else
     	{
     		if(xyofcur==true)
     		{
-    			added.rect=new RectHV(cur.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
+    			added.rect=new RectHV(added.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
     		}
     		else
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), added.p.y());
     		}
     	}
     	
@@ -309,9 +309,13 @@ public class KdTree implements PointContainer
     public static void main(String[] args)
     {
     	KdTree test= new KdTree();
-    	test.insert(new Point2D(0.3,0.4));
-    	test.insert(new Point2D(0.4,0.5));
-    	test.contains(new Point2D(0.3,0.4));
+    	test.insert(new Point2D(0.0,0.8));
+    	test.insert(new Point2D(0.9,0.7));
+    	test.insert(new Point2D(0.5,0.3));
+    	test.insert(new Point2D(0.1,0.1));
+    	test.insert(new Point2D(0.9,0.4));
+    	
+
 
     }
 }
