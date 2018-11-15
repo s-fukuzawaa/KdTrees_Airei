@@ -244,7 +244,7 @@ public class KdTree implements PointContainer
     	// For points, use these calls:
         canvas.setPenRadius(.01);
     	canvas.setPenColor(Color.BLACK);
-    	canvas.point();
+    	//canvas.point();
     	//
     	// For dividing lines, use these calls:
     	canvas.setPenRadius(.002);
@@ -252,10 +252,38 @@ public class KdTree implements PointContainer
     	canvas.setPenColor(Color.BLUE); //(for horizontal dividing lines)
     	
     	//xory true for x
-    	canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
-    
+    	//canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
+       draw(canvas, root, true);
+
 
         // Don't forget to remove this!
+    }
+    private void draw(Canvas canvas, Node cur, boolean xy)
+    {
+    	if(cur==null)
+    	{
+    		return;
+    	}
+    	else
+    	{
+    		if(xy==true)
+    		{
+    			canvas.point(cur.p.x(), cur.p.y());
+        		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
+            	draw(canvas, cur.lb,false);
+            	draw(canvas, cur.rt,false);
+    		}
+    		else
+    		{
+    			canvas.point(cur.p.x(), cur.p.y());
+        		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmin(), cur.p.y());
+            	draw(canvas, cur.lb,true);
+            	draw(canvas, cur.rt,true);
+    		}
+    		
+        	
+
+    	}
     }
     
     public Iterable<Point2D> range(RectHV rect)
