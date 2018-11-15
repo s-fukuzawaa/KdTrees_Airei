@@ -242,14 +242,14 @@ public class KdTree implements PointContainer
     	// Use canvas to draw your points and dividing lines
     	//
     	// For points, use these calls:
-        canvas.setPenRadius(.01);
-    	canvas.setPenColor(Color.BLACK);
+        //canvas.setPenRadius(.01);
+    	//canvas.setPenColor(Color.BLACK);
     	//canvas.point();
     	//
     	// For dividing lines, use these calls:
-    	canvas.setPenRadius(.002);
-    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
-    	canvas.setPenColor(Color.BLUE); //(for horizontal dividing lines)
+    	//canvas.setPenRadius(.002);
+    	//canvas.setPenColor(Color.RED); //for vertical dividing lines)
+    	//canvas.setPenColor(Color.BLUE); //(for horizontal dividing lines)
     	
     	//xory true for x
     	//canvas.line(added.x(), addedrect.ymin(), added.x(), addedrect.ymax());
@@ -268,14 +268,24 @@ public class KdTree implements PointContainer
     	{
     		if(xy==true)
     		{
+    			canvas.setPenRadius(.01);
+    	    	canvas.setPenColor(Color.BLACK);
     			canvas.point(cur.p.x(), cur.p.y());
+    			canvas.setPenRadius(.002);
+    	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
+    	    	canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
             	draw(canvas, cur.lb,false);
             	draw(canvas, cur.rt,false);
     		}
     		else
     		{
+    			canvas.setPenRadius(.01);
+    	    	canvas.setPenColor(Color.BLACK);
     			canvas.point(cur.p.x(), cur.p.y());
+    			canvas.setPenRadius(.002);
+    	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
+    	    	canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmin(), cur.p.y());
             	draw(canvas, cur.lb,true);
             	draw(canvas, cur.rt,true);
