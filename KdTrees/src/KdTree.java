@@ -273,7 +273,7 @@ public class KdTree implements PointContainer
     			canvas.point(cur.p.x(), cur.p.y());
     			canvas.setPenRadius(.002);
     	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
-    	    	canvas.setPenColor(Color.BLUE); 
+    	    	//canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
             	draw(canvas, cur.lb,false);
             	draw(canvas, cur.rt,false);
@@ -284,7 +284,7 @@ public class KdTree implements PointContainer
     	    	canvas.setPenColor(Color.BLACK);
     			canvas.point(cur.p.x(), cur.p.y());
     			canvas.setPenRadius(.002);
-    	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
+    	    	//canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmax(), cur.p.y());
             	draw(canvas, cur.lb,true);
@@ -314,6 +314,7 @@ public class KdTree implements PointContainer
     	test.insert(new Point2D(0.5,0.3));
     	test.insert(new Point2D(0.1,0.1));
     	test.insert(new Point2D(0.9,0.4));
+    	test.insert(new Point2D(0.7,0.7));
     	
 
 
