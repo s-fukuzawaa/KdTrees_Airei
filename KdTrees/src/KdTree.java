@@ -140,22 +140,22 @@ public class KdTree implements PointContainer
     	{
     		if(xyofcur==true)
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),added.p.x(),cur.rect.ymax());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.p.x(),cur.rect.ymax());
     		}
     		else
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.rect.xmax(),added.p.y());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(),cur.rect.xmax(),cur.p.y());
     		}
     	}
     	else
     	{
     		if(xyofcur==true)
     		{
-    			added.rect=new RectHV(added.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
+    			added.rect=new RectHV(cur.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
     		}
     		else
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), added.p.y());
+    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
     		}
     	}
     	
@@ -286,7 +286,7 @@ public class KdTree implements PointContainer
     			canvas.setPenRadius(.002);
     	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	canvas.setPenColor(Color.BLUE); 
-        		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmin(), cur.p.y());
+        		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmax(), cur.p.y());
             	draw(canvas, cur.lb,true);
             	draw(canvas, cur.rt,true);
     		}
