@@ -62,19 +62,15 @@ public class KdTree implements PointContainer
     		root=n;
     		return;
     	}
+    	if(cur.p.x()==p.x()&&cur.p.y()==p.y())
+    	{
+    		return;
+    	}
     	
     	//xy==true when compare with x value
     	if(xy==true)
     	{
-    		if(cur.p.x()==p.x()&&cur.p.y()==p.y())
-        	{
-        		if(cur.rt==null)
-        		{
-        			return;
-        		}
-        		insert(p,cur.rt,false);
-        		return;
-        	}
+    		
     		if(p.x()==cur.p.x())
     		{
     			if(cur.rt==null)
@@ -114,15 +110,7 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
-    		if(cur.p.x()==p.x()&&cur.p.y()==p.y())
-        	{
-        		if(cur.rt==null)
-        		{
-        			return;
-        		}
-        		insert(p,cur.rt,true);
-        		return;
-        	}
+    		
     		if(p.y()==cur.p.y())
     		{
     			if(cur.rt==null)
@@ -296,10 +284,6 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
-    		if(cur.p.x()==0.3&&cur.p.y()==0.2)
-    		{
-    			System.out.print("error");
-    		}
     		canvas.setPenRadius(.01);
 	    	canvas.setPenColor(Color.BLACK);
 			canvas.point(cur.p.x(), cur.p.y());
@@ -309,13 +293,13 @@ public class KdTree implements PointContainer
     			canvas.setPenRadius(.002);
     	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	//canvas.setPenColor(Color.BLUE); 
-    	    	
+    	    	if(cur.p.x()==0.9&&cur.p.y()==0.4)
+    	    	{
+    	    		System.out.print("error now!!");
+    	    	}
         		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
-        		
-        		draw(canvas, cur.lb,false);
-                	draw(canvas, cur.rt,false);
-
-        		
+            	draw(canvas, cur.lb,false);
+            	draw(canvas, cur.rt,false);
     		}
     		else
     		{
@@ -324,10 +308,8 @@ public class KdTree implements PointContainer
     	    	//canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmax(), cur.p.y());
-        		draw(canvas, cur.lb,true);
-                	draw(canvas, cur.rt,true);
-
-        		
+            	draw(canvas, cur.lb,true);
+            	draw(canvas, cur.rt,true);
     		}
     		
         	
