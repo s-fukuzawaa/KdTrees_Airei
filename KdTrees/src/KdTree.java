@@ -62,9 +62,31 @@ public class KdTree implements PointContainer
     		root=n;
     		return;
     	}
+    	
     	//xy==true when compare with x value
     	if(xy==true)
     	{
+    		if(cur.p.x()==p.x()&&cur.p.y()==p.y())
+        	{
+        		if(cur.rt==null)
+        		{
+        			return;
+        		}
+        		insert(p,cur.rt,false);
+        		return;
+        	}
+    		if(p.x()==cur.p.x())
+    		{
+    			if(cur.rt==null)
+    			{
+    				cur.rt=n;
+    				insertrect(cur.rt,cur,false,xy);
+    				return;
+    			}
+    			insert(p,cur.rt,false);
+    			return;
+    			
+    		}
     		if(p.x()<cur.p.x())
         	{
     			if(cur.lb==null)
@@ -74,11 +96,8 @@ public class KdTree implements PointContainer
     				//if on cur's left side=true, cur's right side=false
     				return;
     			}
-    			else
-    			{
-    				insert(p,cur.lb,false);
-    				return;
-    			}
+    			insert(p,cur.lb,false);
+    			return;
         	}
     		
     		else
@@ -89,16 +108,33 @@ public class KdTree implements PointContainer
     				insertrect(cur.rt,cur,false,xy);
     				return;
     			}
-    			else
-    			{
-    				insert(p,cur.rt,false);
-    				return;
-    			}
+    			insert(p,cur.rt,false);
+    			return;
     		}
     	}
     	else
     	{
-
+    		if(cur.p.x()==p.x()&&cur.p.y()==p.y())
+        	{
+        		if(cur.rt==null)
+        		{
+        			return;
+        		}
+        		insert(p,cur.rt,true);
+        		return;
+        	}
+    		if(p.y()==cur.p.y())
+    		{
+    			if(cur.rt==null)
+    			{
+    				cur.rt=n;
+    				insertrect(cur.rt,cur,false,xy);
+    				return;
+    			}
+    			insert(p,cur.rt,true);
+    			return;
+    		}
+    	
     		if(p.y()<cur.p.y())
         	{
     			if(cur.lb==null)
@@ -108,11 +144,8 @@ public class KdTree implements PointContainer
 
     				return;
     			}
-    			else
-    			{
-    				insert(p,cur.lb,true);
-    				return;
-    			}
+    			insert(p,cur.lb,true);
+    			return;
         	}
     		
     		else
@@ -124,11 +157,8 @@ public class KdTree implements PointContainer
 
     				return;
     			}
-    			else
-    			{
-    				insert(p,cur.rt,true);
-    				return;
-    			}
+    			insert(p,cur.rt,true);
+    			return;
     		}
     	}
     	
@@ -275,6 +305,10 @@ public class KdTree implements PointContainer
     			canvas.setPenRadius(.002);
     	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	//canvas.setPenColor(Color.BLUE); 
+    	    	if(cur.p.x()==0.9&&cur.p.y()==0.4)
+    	    	{
+    	    		System.out.print("error now!!");
+    	    	}
         		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
             	draw(canvas, cur.lb,false);
             	draw(canvas, cur.rt,false);
