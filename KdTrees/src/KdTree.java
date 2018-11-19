@@ -296,6 +296,10 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
+    		if(cur.p.x()==0.3&&cur.p.y()==0.2)
+    		{
+    			System.out.print("error");
+    		}
     		canvas.setPenRadius(.01);
 	    	canvas.setPenColor(Color.BLACK);
 			canvas.point(cur.p.x(), cur.p.y());
@@ -307,26 +311,11 @@ public class KdTree implements PointContainer
     	    	//canvas.setPenColor(Color.BLUE); 
     	    	
         		canvas.line(cur.p.x(), cur.rect.ymin(), cur.p.x(), cur.rect.ymax());
-        		if(cur.lb!=null&&cur.lb.p.y()==cur.p.y())
-        		{
-                	draw(canvas, cur.lb.lb,false);
-                	draw(canvas, cur.lb.rt,false);
-
-
-        		}
-        		if(cur.rt!=null&&cur.rt.p.y()==cur.p.y())
-        		{
-                	draw(canvas, cur.rt.lb,false);
-                	draw(canvas, cur.rt.rt,false);
-
-
-        		}
-        		else
-        		{
-        			draw(canvas, cur.lb,false);
+        		
+        		draw(canvas, cur.lb,false);
                 	draw(canvas, cur.rt,false);
 
-        		}
+        		
     		}
     		else
     		{
@@ -335,27 +324,10 @@ public class KdTree implements PointContainer
     	    	//canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	canvas.setPenColor(Color.BLUE); 
         		canvas.line(cur.rect.xmin(), cur.p.y(), cur.rect.xmax(), cur.p.y());
-        		if(cur.lb!=null&&cur.lb.p.x()==cur.p.x())
-        		{
-                	draw(canvas, cur.lb.lb,false);
-                	draw(canvas, cur.lb.rt,false);
-
-
-        		}
-        		if(cur.rt!=null&&cur.rt.p.x()==cur.p.x())
-        		{
-                	draw(canvas, cur.rt.lb,false);
-                	draw(canvas, cur.rt.rt,false);
-        		}
-
-
-        		
-        		else
-        		{
-        			draw(canvas, cur.lb,true);
+        		draw(canvas, cur.lb,true);
                 	draw(canvas, cur.rt,true);
 
-        		}
+        		
     		}
     		
         	
