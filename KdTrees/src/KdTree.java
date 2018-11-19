@@ -12,7 +12,6 @@ public class KdTree implements PointContainer
 	}
 	
 	private Node root;
-	
     public boolean isEmpty()
     {
     	return root==null;
@@ -63,6 +62,7 @@ public class KdTree implements PointContainer
     		root=n;
     		return;
     	}
+    	//xy==true when compare with x value
     	if(xy==true)
     	{
     		if(p.x()<cur.p.x())
@@ -135,7 +135,7 @@ public class KdTree implements PointContainer
     }
     
     private void insertrect(Node added, Node cur, boolean lorr, boolean xyofcur)
-    {
+    {//lorr==true when on the left subtree
     	if(lorr==true)
     	{
     		if(xyofcur==true)
@@ -148,17 +148,17 @@ public class KdTree implements PointContainer
     		}
     	}
     	else
-    	{
+    	{//xyofcur==true when compare with x value
     		if(xyofcur==true)
     		{
     			added.rect=new RectHV(cur.p.x(),cur.rect.ymin(), cur.rect.xmax(), cur.rect.ymax());
     		}
     		else
     		{
-    			added.rect=new RectHV(cur.rect.xmin(),cur.rect.ymin(), cur.rect.xmax(), cur.p.y());
+    			//cur.rect.max//change1 0.3, 0.2
+    			added.rect=new RectHV(cur.rect.xmin(),cur.p.y(), cur.rect.xmax(), cur.rect.ymax());
     		}
     	}
-    	
     }
     
 
@@ -266,11 +266,12 @@ public class KdTree implements PointContainer
     	}
     	else
     	{
+    		canvas.setPenRadius(.01);
+	    	canvas.setPenColor(Color.BLACK);
+			canvas.point(cur.p.x(), cur.p.y());
     		if(xy==true)
     		{
-    			canvas.setPenRadius(.01);
-    	    	canvas.setPenColor(Color.BLACK);
-    			canvas.point(cur.p.x(), cur.p.y());
+    			
     			canvas.setPenRadius(.002);
     	    	canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	//canvas.setPenColor(Color.BLUE); 
@@ -280,9 +281,7 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			canvas.setPenRadius(.01);
-    	    	canvas.setPenColor(Color.BLACK);
-    			canvas.point(cur.p.x(), cur.p.y());
+    			
     			canvas.setPenRadius(.002);
     	    	//canvas.setPenColor(Color.RED); //for vertical dividing lines)
     	    	canvas.setPenColor(Color.BLUE); 
@@ -309,12 +308,23 @@ public class KdTree implements PointContainer
     public static void main(String[] args)
     {
     	KdTree test= new KdTree();
+    	Canvas canvas = new StdDrawCanvas();
+
     	test.insert(new Point2D(0.0,0.8));
     	test.insert(new Point2D(0.9,0.7));
     	test.insert(new Point2D(0.5,0.3));
     	test.insert(new Point2D(0.1,0.1));
     	test.insert(new Point2D(0.9,0.4));
     	test.insert(new Point2D(0.7,0.7));
+    	test.insert(new Point2D(0.3,0.2));
+    	test.insert(new Point2D(0.5,0.4));
+    	test.insert(new Point2D(0.1,0.0));
+    	test.insert(new Point2D(0.3,0.8));
+    	test.insert(new Point2D(0.4,0.7));//
+    	test.insert(new Point2D(0.2,0.0));
+    	test.insert(new Point2D(0.3,0.2));
+    	test.draw(canvas);
+
     	
 
 
