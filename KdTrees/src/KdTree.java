@@ -327,7 +327,7 @@ public class KdTree implements PointContainer
     {
     	if(cur==null||rect==null)
     	{
-    		throw new java.lang.NullPointerException();
+    		return a;
     	}
     	if(xy)
     	{
