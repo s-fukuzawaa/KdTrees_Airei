@@ -333,34 +333,30 @@ public class KdTree implements PointContainer
     	{
     		if(cur.p.x()>rect.xmax())
     		{
-    			return range(cur.lb,rect,false,a);
+    			a=(ArrayList<Point2D>) range(cur.lb,rect,false,a);
     		}
     		if(cur.p.x()<rect.xmin())
     		{
-    			return range(cur.rt,rect,false,a);
+    			a=(ArrayList<Point2D>) range(cur.rt,rect,false,a);
     		}
     		else
     		{
     			a.add(cur.p);
-    			range(cur.lb,rect,false,a);
-    			range(cur.rt,rect,false,a);
     		}
     	}
     	else//xy==false
     	{
     		if(cur.p.y()>rect.ymax())
     		{
-    			return range(cur.lb,rect,true,a);
+    			a=(ArrayList<Point2D>) range(cur.lb,rect,true,a);
     		}
     		if(cur.p.y()<rect.ymin())
     		{
-    			return range(cur.rt,rect,true,a);
+    			a=(ArrayList<Point2D>) range(cur.rt,rect,true,a);
     		}
     		else
     		{
     			a.add(cur.p);
-    			range(cur.lb,rect,true,a);
-    			range(cur.rt,rect,true,a);
     		}
     	}
     	return a;
