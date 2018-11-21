@@ -333,30 +333,35 @@ public class KdTree implements PointContainer
     	{
     		if(cur.p.x()>rect.xmax())
     		{
-    			a=(ArrayList<Point2D>) range(cur.lb,rect,false,a);
+    			return range(cur.lb,rect,false,a);
     		}
     		if(cur.p.x()<rect.xmin())
     		{
-    			a=(ArrayList<Point2D>) range(cur.rt,rect,false,a);
+    			return range(cur.rt,rect,false,a);
     		}
     		else
     		{
     			a.add(cur.p);
+    			range(cur.lb,rect,false,a);
+    			range(cur.rt,rect,false,a);
+    			
     		}
     	}
     	else//xy==false
     	{
     		if(cur.p.y()>rect.ymax())
     		{
-    			a=(ArrayList<Point2D>) range(cur.lb,rect,true,a);
+    			return range(cur.lb,rect,true,a);
     		}
     		if(cur.p.y()<rect.ymin())
     		{
-    			a=(ArrayList<Point2D>) range(cur.rt,rect,true,a);
+    			return range(cur.rt,rect,true,a);
     		}
     		else
     		{
     			a.add(cur.p);
+    			range(cur.lb,rect,true,a);
+    			range(cur.rt,rect,true,a);
     		}
     	}
     	return a;
@@ -374,19 +379,18 @@ public class KdTree implements PointContainer
 
     	test.insert(new Point2D(0.0,0.8));
     	test.insert(new Point2D(0.9,0.7));
-    	test.insert(new Point2D(0.5,0.3));
-    	test.insert(new Point2D(0.1,0.1));
+    	test.insert(new Point2D(0.5,0.3));//
+    	test.insert(new Point2D(0.1,0.1));//
     	test.insert(new Point2D(0.9,0.4));
     	test.insert(new Point2D(0.7,0.7));
-    	test.insert(new Point2D(0.3,0.2));
-    	test.insert(new Point2D(0.5,0.4));
-    	test.insert(new Point2D(0.1,0.0));
+    	test.insert(new Point2D(0.3,0.2));//
+    	test.insert(new Point2D(0.5,0.4));//
+    	test.insert(new Point2D(0.1,0.0));//
     	test.insert(new Point2D(0.3,0.8));
-    	test.insert(new Point2D(0.4,0.7));//
-    	test.insert(new Point2D(0.2,0.0));
+    	test.insert(new Point2D(0.4,0.7));
+    	test.insert(new Point2D(0.2,0.0));//
     	test.insert(new Point2D(0.3,0.2));
-    	test.draw(canvas);
-
+    	Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
     	
 
 
