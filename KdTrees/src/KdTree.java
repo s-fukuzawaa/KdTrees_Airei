@@ -341,10 +341,12 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			a.add(cur.p);
-    			range(cur.lb,rect,false,a);
+    			if(cur.p.y()>=rect.ymin()&&cur.p.y()<=rect.ymax())
+    			{
+    				a.add(cur.p);
+    			}
     			range(cur.rt,rect,false,a);
-    			
+    			range(cur.lb,rect,false,a);
     		}
     	}
     	else//xy==false
@@ -359,7 +361,10 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			a.add(cur.p);
+    			if(cur.p.x()>=rect.xmin()&&cur.p.x()<=rect.xmax())
+    			{
+    				a.add(cur.p);
+    			}
     			range(cur.lb,rect,true,a);
     			range(cur.rt,rect,true,a);
     		}
