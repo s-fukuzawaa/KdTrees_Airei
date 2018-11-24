@@ -374,9 +374,90 @@ public class KdTree implements PointContainer
     }
     public Point2D nearest(Point2D p)
     {
-    	throw new UnsupportedOperationException();
+    	if(p==null||root==null)
+    	{
+    		return null;
+    	}
+    	if(contains(p))
+    	{
+    		return p;
+    	}
+    	return nearest(root,p,root.p,true);
     }    
-    
+    private Point2D nearest(Node cur, Point2D p, Point2D result, boolean xy)
+    {
+    	if(cur==null)
+    	{
+    		return result;
+    	}
+    	if(cur.p.distanceSquaredTo(p)<result.distanceSquaredTo(p))
+    	{
+    		result=cur.p;
+    	}
+    	Point2D a=null;
+    	Point2D b=null;
+    	if(xy)
+    	{
+    		//1st case when p.x()<cur.p.x()
+    		if(p.x()<cur.p.x())
+    		{
+    			if(p.x()<cur.rect.xmin())
+    			{
+    				return nearest(cur.lb,p,result,false);
+    			}
+
+    			a=nearest(cur.lb,p,result,false);
+    			b=nearest(cur.rt,p,result,false);
+    		}
+    		else
+    		{
+    			if(p.x()>cur.rect.xmax())
+    			{
+    				return nearest(cur.rt,p,result,false);
+    			}
+
+    			a=nearest(cur.rt,p,result,false);
+    			b=nearest(cur.lb,p,result,false);
+
+    		}
+
+			
+    		//case with right node
+    		
+    	}
+    	else
+    	{
+    		if(p.y()<cur.p.y())
+    		{
+    			if(p.y()<cur.rect.ymin())
+    			{
+    				return nearest(cur.lb,p,result,true);
+    			}
+
+    			a=nearest(cur.lb,p,result,true);
+    			b=nearest(cur.rt,p,result,true);
+    		}
+    		else
+    		{
+    			if(p.y()>cur.rect.ymax())
+    			{
+    				return nearest(cur.rt,p,result,true);
+    			}
+    			a=nearest(cur.rt,p,result,true);
+    			b=nearest(cur.lb,p,result,true);
+
+    		}
+    	}
+    	if(a!=null&&b!=null)
+		{
+			if(p.distanceSquaredTo(a)<p.distanceSquaredTo(b))
+			{
+				return a;
+			}
+			return b;
+		}
+    	return result;
+    }
     public static void main(String[] args)
     {
     	KdTree test= new KdTree();
@@ -395,8 +476,8 @@ public class KdTree implements PointContainer
     	test.insert(new Point2D(0.4,0.7));
     	test.insert(new Point2D(0.2,0.0));//
     	test.insert(new Point2D(0.3,0.2));
-    	Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
-    	
+    	//Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
+    	Point2D result=test.nearest(new Point2D(0,0));
 
 
     }
