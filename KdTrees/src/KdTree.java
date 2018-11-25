@@ -395,7 +395,7 @@ public class KdTree implements PointContainer
     		result=cur.p;
     	}
     	Point2D a=null;
-    	Point2D b=null;
+    	//Point2D b=null;
     	if(xy)
     	{
     		//1st case when p.x()<cur.p.x()
@@ -405,9 +405,13 @@ public class KdTree implements PointContainer
     			{
     				return nearest(cur.lb,p,result,false);
     			}
-
     			a=nearest(cur.lb,p,result,false);
-    			b=nearest(cur.rt,p,result,false);
+    			if(a!=null)
+    			{
+    				return a;
+    			}
+				return nearest(cur.rt,p,result,false);
+
     		}
     		else
     		{
@@ -417,7 +421,11 @@ public class KdTree implements PointContainer
     			}
 
     			a=nearest(cur.rt,p,result,false);
-    			b=nearest(cur.lb,p,result,false);
+    			if(a!=null)
+    			{
+    				return a;
+    			}
+				return nearest(cur.lb,p,result,false);
 
     		}
 
@@ -435,7 +443,12 @@ public class KdTree implements PointContainer
     			}
 
     			a=nearest(cur.lb,p,result,true);
-    			b=nearest(cur.rt,p,result,true);
+    			if(a!=null)
+    			{
+    				return a;
+    			}
+				return nearest(cur.rt,p,result,true);
+
     		}
     		else
     		{
@@ -444,19 +457,23 @@ public class KdTree implements PointContainer
     				return nearest(cur.rt,p,result,true);
     			}
     			a=nearest(cur.rt,p,result,true);
-    			b=nearest(cur.lb,p,result,true);
+    			if(a!=null)
+    			{
+    				return a;
+    			}
+				return nearest(cur.lb,p,result,true);
 
     		}
     	}
-    	if(a!=null)
+    	/*if(a!=null)
 		{
 			if(p.distanceSquaredTo(a)<p.distanceSquaredTo(b))
 			{
 				return a;
 			}
 			return b;
-		}
-    	return result;
+		}*/
+    	//return result;
     }
     public static void main(String[] args)
     {
@@ -477,7 +494,7 @@ public class KdTree implements PointContainer
     	test.insert(new Point2D(0.2,0.0));//
     	test.insert(new Point2D(0.3,0.2));
     	//Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
-    	Point2D result=test.nearest(new Point2D(0.41,0.84));
+    	Point2D result=test.nearest(new Point2D(0.41,0.71));
 
 
     }
