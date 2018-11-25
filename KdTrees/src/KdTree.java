@@ -407,7 +407,7 @@ public class KdTree implements PointContainer
     			}
 
     			a=nearest(cur.lb,p,result,false);
-    			if(cur.rt==null||a.distanceSquaredTo(p)<new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymin()).distanceSquaredTo(p)||a.distanceSquaredTo(p)<new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymax()).distanceSquaredTo(p))
+    			if(cur.rt==null||p.x()<cur.rt.rect.xmin())
     			{
     				return a;
     			}
@@ -421,7 +421,7 @@ public class KdTree implements PointContainer
     			}
 
     			a=nearest(cur.rt,p,result,false);
-    			if(cur.lb==null||a.distanceSquaredTo(p)<new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymax()).distanceSquaredTo(p)||a.distanceSquaredTo(p)<new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymin()).distanceSquaredTo(p))
+    			if(cur.lb==null||p.x()>cur.lb.rect.xmax())
     			{
     				return a;
     			}
@@ -443,7 +443,7 @@ public class KdTree implements PointContainer
     			}
 
     			a=nearest(cur.lb,p,result,true);
-    			if(cur.rt==null||a.distanceSquaredTo(p)<new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymin()).distanceSquaredTo(p)||a.distanceSquaredTo(p)<new Point2D(cur.rt.rect.xmax(),cur.rt.rect.ymin()).distanceSquaredTo(p))
+    			if(cur.rt==null||p.y()<cur.rt.rect.ymin())
     			{
     				return a;
     			}
@@ -456,7 +456,7 @@ public class KdTree implements PointContainer
     				return nearest(cur.rt,p,result,true);
     			}
     			a=nearest(cur.rt,p,result,true);
-    			if(cur.lb==null||a.distanceSquaredTo(p)<new Point2D(cur.lb.rect.xmin(),cur.lb.rect.ymax()).distanceSquaredTo(p)||a.distanceSquaredTo(p)<new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymax()).distanceSquaredTo(p))
+    			if(cur.lb==null||p.y()>cur.lb.rect.ymax())
     			{
     				return a;
     			}
