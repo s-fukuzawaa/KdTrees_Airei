@@ -401,7 +401,7 @@ public class KdTree implements PointContainer
     		//1st case when p.x()<cur.p.x()
     		if(p.x()<cur.p.x())
     		{
-    			if(p.distanceSquaredTo(new Point2D(cur.rect.xmin(),cur.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rect.xmin(),cur.rect.ymax()))>result.distanceSquaredTo(p))
+    			if(cur.rt!=null&&p.distanceSquaredTo(new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymax()))>result.distanceSquaredTo(p))
     			{
     				return nearest(cur.lb,p,result,false);
     			}
@@ -411,7 +411,7 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			if(p.distanceSquaredTo(new Point2D(cur.rect.xmax(),cur.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rect.xmax(),cur.rect.ymax()))>result.distanceSquaredTo(p))
+    			if(cur.lb!=null&&p.distanceSquaredTo(new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymax()))>result.distanceSquaredTo(p))
     			{
     				return nearest(cur.rt,p,result,false);
     			}
@@ -429,7 +429,7 @@ public class KdTree implements PointContainer
     	{
     		if(p.y()<cur.p.y())
     		{
-    			if(p.distanceSquaredTo(new Point2D(cur.rect.xmin(),cur.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rect.xmax(),cur.rect.ymin()))>result.distanceSquaredTo(p))
+    			if(cur.rt!=null&&p.distanceSquaredTo(new Point2D(cur.rt.rect.xmin(),cur.rt.rect.ymin()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rt.rect.xmax(),cur.rt.rect.ymin()))>result.distanceSquaredTo(p))
     			{
     				return nearest(cur.lb,p,result,true);
     			}
@@ -439,7 +439,7 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			if(p.distanceSquaredTo(new Point2D(cur.rect.xmin(),cur.rect.ymax()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.rect.xmax(),cur.rect.ymax()))>result.distanceSquaredTo(p))
+    			if(cur.lb!=null&&p.distanceSquaredTo(new Point2D(cur.lb.rect.xmin(),cur.lb.rect.ymax()))>result.distanceSquaredTo(p)&&p.distanceSquaredTo(new Point2D(cur.lb.rect.xmax(),cur.lb.rect.ymax()))>result.distanceSquaredTo(p))
     			{
     				return nearest(cur.rt,p,result,true);
     			}
@@ -477,7 +477,7 @@ public class KdTree implements PointContainer
     	test.insert(new Point2D(0.2,0.0));//
     	test.insert(new Point2D(0.3,0.2));
     	//Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
-    	Point2D result=test.nearest(new Point2D(0,0));
+    	Point2D result=test.nearest(new Point2D(0.41,0.84));
 
 
     }
