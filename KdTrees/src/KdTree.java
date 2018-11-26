@@ -396,116 +396,47 @@ public class KdTree implements PointContainer
     		result=cur.p;
     	}
     	Point2D a=null;
-    	if(xy)//when determine by x
+    	Point2D b=null;
+    	if(xy)
     	{
-    		if(p.x()<cur.p.x())//when query on the left of current point
+    		if(p.x()<cur.p.x()&&result.distanceSquaredTo(p)>p.distanceSquaredTo(new Point2D(cur.rect.xmin(),p.y())))
     		{
-    			//when right subtree is not null, distance to best to query compare to right rectangle smallest x value
-    			if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.rt.rect.xmin(),p.y())))
-    			{
-    				//when left subtree is not null, distance best to query compare to left rectangle smallest x value
-        			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.lb.rect.xmin(),p.y())))
-        			{
-        				return result;
-        			}
-        			return nearest(cur.lb,p,result,false);
-    			}
-    			
-    			else//when go to both subtrees
-    			{
-    				a=nearest(cur.lb,p,result,false);//find the best of left first since on the left, one side of the split line
-    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))//check first result and best result
-    				{
-    					return a;
-    				}
-    					
-    				return nearest(cur.rt,p,result,false);
-
-    			}
-
+    			a=nearest(cur.lb,p,result,false);
+    		}
+    		if(p.x()>cur.p.x()&&result.distanceSquaredTo(p)>p.distanceSquaredTo(new Point2D(cur.rect.xmax(),p.y())))
+    		{
+    			a=nearest(cur.rt,p,result,false);
     		}
     		else
-    		{
-    			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.lb.rect.xmax(),p.y())))
-    			{
-    				if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.rt.rect.xmax(),p.y())))
-    				{
-    					return result;
-    				}
-    				 return nearest(cur.rt,p,result,false);
-    			}
-    			
-    			else//when go both
-    			{
-    				a=nearest(cur.rt,p,result,false);
-    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
-    				{
-    					return a;
-    				}
-    				return nearest(cur.lb,p,result,false);
+		{
+		a=nearest(cur.lb,p,result,false);
+    		b=nearest(cur.rt,p,result,false);
+		}
 
-    			}
-    		}
-
-			
-    		//case with right node
-    		
     	}
     	else
     	{
-    		if(p.y()<cur.p.y())
+    		if(p.y()<cur.p.y()&&result.distanceSquaredTo(p)>p.distanceSquaredTo(new Point2D(p.x(),cur.rect.ymin())))
     		{
-    			if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.rt.rect.ymin())))
-    			{
-    				if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.lb.rect.ymin())))
-    				{
-    					return result;
-    				}
-    				return nearest(cur.lb,p,result,true);
-    			}
-    			else
-    			{
-    				a=nearest(cur.lb,p,result,true);
-    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
-    				{
-    					return a;
-    				}
-    				return nearest(cur.rt,p,result,true);
-
-    			}
-
+    			a=nearest(cur.lb,p,result,true);
     		}
+    		if(p.y()>cur.p.y()&&result.distanceSquaredTo(p)>p.distanceSquaredTo(new Point2D(p.y(),cur.rect.ymax())))
+    		{
+    			a=nearest(cur.rt,p,result,true);
+    		}
+
     		else
-    		{
-    			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.lb.rect.ymax())))
-    			{
-    				if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.rt.rect.ymax())))
-    				{
-    					return result;
-    				}
-    				return nearest(cur.rt,p,result,true);
-    			}
-    			else
-    			{
-    				a=nearest(cur.rt,p,result,true);
-    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
-    				{
-    					return a;
-    				}
-    				return nearest(cur.lb,p,result,true);
-
-    			}
-
-    		}
-    	}
-    	/*if(a!=null&&b!=null)
 		{
-			if(p.distanceSquaredTo(a)<p.distanceSquaredTo(b))
+		a=nearest(cur.rt,p,result,true);
+    		b=nearest(cur.lb,p,result,true);
+		}
+    	}
+    	if(p.distanceSquaredTo(a)<p.distanceSquaredTo(b))
 			{
 				return a;
 			}
 			return b;
-		}*/
+		
     	//return result;
     }
     public static void main(String[] args)
