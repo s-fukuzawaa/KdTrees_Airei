@@ -164,8 +164,8 @@ public class KdTree implements PointContainer
     {
     	if(p==null||root==null)
     	{
-    		throw new java.lang.NullPointerException();
-    	}
+		return false;
+	}
     	return contains(p,root,true);
     }
     private boolean contains(Point2D p, Node cur, boolean xy)
