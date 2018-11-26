@@ -329,6 +329,7 @@ public class KdTree implements PointContainer
     	{
     		return a;
     	}
+    	//when determine by x
     	if(xy)
     	{
     		if(cur.p.x()>rect.xmax())
@@ -349,7 +350,7 @@ public class KdTree implements PointContainer
     			range(cur.lb,rect,false,a);
     		}
     	}
-    	else//xy==false
+    	else//when determine by y
     	{
     		if(cur.p.y()>rect.ymax())
     		{
@@ -395,20 +396,25 @@ public class KdTree implements PointContainer
     		result=cur.p;
     	}
     	Point2D a=null;
-    	if(xy)
+    	if(xy)//when determine by x
     	{
-    		//1st case when p.x()<cur.p.x()
-    		if(p.x()<cur.p.x())
+    		if(p.x()<cur.p.x())//when query on the left of current point
     		{
+    			//when right subtree is not null, distance to best to query compare to right rectangle smallest x value
     			if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.rt.rect.xmin(),p.y())))
     			{
-    				return nearest(cur.lb,p,result,false);
+    				//when left subtree is not null, distance best to query compare to left rectangle smallest x value
+        			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.lb.rect.xmin(),p.y())))
+        			{
+        				return result;
+        			}
+        			return nearest(cur.lb,p,result,false);
     			}
     			
-    			else
+    			else//when go to both subtrees
     			{
-    				a=nearest(cur.lb,p,result,false);
-    				if(a.distanceSquaredTo(p)<cur.p.distanceSquaredTo(p))
+    				a=nearest(cur.lb,p,result,false);//find the best of left first since on the left, one side of the split line
+    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))//check first result and best result
     				{
     					return a;
     				}
@@ -422,13 +428,17 @@ public class KdTree implements PointContainer
     		{
     			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.lb.rect.xmax(),p.y())))
     			{
+    				if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(cur.rt.rect.xmax(),p.y())))
+    				{
+    					return result;
+    				}
     				 return nearest(cur.rt,p,result,false);
     			}
     			
-    			else
+    			else//when go both
     			{
     				a=nearest(cur.rt,p,result,false);
-    				if(a.distanceSquaredTo(p)<cur.p.distanceSquaredTo(p))
+    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
     				{
     					return a;
     				}
@@ -445,15 +455,18 @@ public class KdTree implements PointContainer
     	{
     		if(p.y()<cur.p.y())
     		{
-    			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.lb.rect.ymin())))
+    			if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.rt.rect.ymin())))
     			{
-    					
+    				if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.lb.rect.ymin())))
+    				{
+    					return result;
+    				}
     				return nearest(cur.lb,p,result,true);
     			}
     			else
     			{
     				a=nearest(cur.lb,p,result,true);
-    				if(a.distanceSquaredTo(p)<cur.p.distanceSquaredTo(p))
+    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
     				{
     					return a;
     				}
@@ -464,14 +477,18 @@ public class KdTree implements PointContainer
     		}
     		else
     		{
-    			if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.rt.rect.ymax())))
+    			if(cur.lb!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.lb.rect.ymax())))
     			{
+    				if(cur.rt!=null&&result.distanceSquaredTo(p)<p.distanceSquaredTo(new Point2D(p.x(),cur.rt.rect.ymax())))
+    				{
+    					return result;
+    				}
     				return nearest(cur.rt,p,result,true);
     			}
     			else
     			{
     				a=nearest(cur.rt,p,result,true);
-    				if(a.distanceSquaredTo(p)<cur.p.distanceSquaredTo(p))
+    				if(a.distanceSquaredTo(p)<result.distanceSquaredTo(p))
     				{
     					return a;
     				}
