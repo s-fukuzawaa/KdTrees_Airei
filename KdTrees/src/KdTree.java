@@ -72,18 +72,6 @@ public class KdTree implements PointContainer
     	if(xy==true)
     	{
     		
-    		if(p.x()==cur.p.x())
-    		{
-    			if(cur.rt==null)
-    			{
-    				cur.rt=n;
-    				insertrect(cur.rt,cur,false,xy);
-    				return;
-    			}
-    			insert(p,cur.rt,false);
-    			return;
-    			
-    		}
     		if(p.x()<cur.p.x())
         	{
     			if(cur.lb==null)
@@ -112,17 +100,7 @@ public class KdTree implements PointContainer
     	else
     	{
     		
-    		if(p.y()==cur.p.y())
-    		{
-    			if(cur.rt==null)
-    			{
-    				cur.rt=n;
-    				insertrect(cur.rt,cur,false,xy);
-    				return;
-    			}
-    			insert(p,cur.rt,true);
-    			return;
-    		}
+    		
     	
     		if(p.y()<cur.p.y())
         	{
@@ -473,6 +451,8 @@ public class KdTree implements PointContainer
     	test.insert(new Point2D(0.3,0.2));
     	//Iterable<Point2D> debug=test.range(new RectHV(0,0,0.5,0.5));
     	Point2D result=test.nearest(new Point2D(0.41,0.7));
+    	Point2D result2=test.nearest(new Point2D(0.0,0.0));
+
 
 
     }
